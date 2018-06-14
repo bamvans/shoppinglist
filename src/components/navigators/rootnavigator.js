@@ -11,6 +11,7 @@ import AddListScreen from '../../screens/secondary/addlistscreen';
 import LoginScreen from '../../screens/authentication/loginscreen';
 import LogoutScreen from '../../screens/authentication/logoutscreen';
 import ListCreatedScreen from '../../screens/ending/listcreatedscreen';
+import EditChoosenListScreen from '../../screens/secondary/editchoosenlistscreen';
 //////////////////////////////////////////////////////////////////////////////////////////
 
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
@@ -77,7 +78,10 @@ const InitialListNavigator = StackNavigator({
 const EditListNavigator = StackNavigator({
     EditListScreen: {
         screen: EditListScreen
-    }
+    },
+    EditChoosenListScreen:{
+        screen:EditChoosenListScreen
+    },
 }, {
     initialRouteName: 'EditListScreen',
     navigationOptions: () => ({
