@@ -7,7 +7,7 @@ import {StyleSheet,
     TouchableOpacity
  } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { Container, Content, List, ListItem, Left, Body, Right, Thumbnail } from 'native-base';
+import { Container, Content, List, ListItem, Left, Body, Right } from 'native-base';
 import * as firebase from 'firebase';
 
 export default class EditListScreen extends React.Component {
@@ -67,7 +67,7 @@ export default class EditListScreen extends React.Component {
                 </Left>
                 <Body>
                     <TouchableOpacity>
-                    <Text style={{fontWeight: 'bold', fontSize:25}} >{item}</Text>
+                        <Text style={{fontWeight: 'bold', fontSize:25}} onPress={() => this.props.navigation.navigate('EditChoosenListScreen',{listTitle:item})}>{item}</Text>
                     </TouchableOpacity>
                 </Body>
                 <Right>

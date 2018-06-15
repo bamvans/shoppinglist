@@ -33,7 +33,7 @@ addItemsToBasket=()=>{
     var uid;
     uid = currentUserLoggedIn.uid; 
     const tis= this;
-    const fdgdf=firebase.database().ref('lists/'+uid).child(this.state.title).child(this.props.navigation.state.params.currentShop).push({
+    const current=firebase.database().ref('lists/'+uid).child(this.state.title).child(this.props.navigation.state.params.currentShop).push({
           item: this.state.text,
         }).key;
         alert(
@@ -44,15 +44,22 @@ addItemsToBasket=()=>{
           { cancelable: false }
         )
 
+        console.log(current);
         setTitle(this.state.title);
         var obj ={};
-        //getting iems of a list
-        firebase.database().ref('lists/'+uid).once('value').then(function(snapshot) {
+        var byShop = [];
+        //getting items of a list
+        firebase.database().ref('lists/'+uid+'/'+this.state.title).once('value').then(function(snapshot) {
         snapshot.forEach(function(data) {
             
-                obj = data.val();
+            obj = {...obj, ...data.val()};
+            console.log(data.val());
+              byShop.push({ shopName: data.key, data: data.val() });  
+
             });
-            tis.setState({shopList: convertObjectToArray(obj)});
+            // run the ting
+            console.log(byShop);
+            tis.setState({shopList: convertObjectToArray(byShop)});
             setListItems(tis.state.shopList);
         });
    
@@ -152,28 +159,29 @@ renderSeparator = () => {
                         ListHeaderComponent={this.renderHeader}
                         ListFooterComponent={this.renderFooter}>
                     </FlatList>
-                    </View>
+                </View>
                 <View style={styles.fourthView}>
-                <Button style={styles.saveButton}  onPress={()=> this.props.navigation.navigate('ListCreatedScreen', {listtitle:this.state.title})}
-                    title="SAVE LIST"
-                    >
-                </Button>
+                    <Button style={styles.saveButton}  onPress={()=> this.props.navigation.navigate('ListCreatedScreen', {listtitle:this.state.title})}
+                        title="SAVE LIST"
+                        >
+                    </Button>
                 </View>
             </View>
         );
     }
 }
 
-const convertObjectToArray = (obj) => {
+const convertObjectToArray = (shops = []) => {
     
    const mainArr = new Array();
     
-   Object.keys(obj).forEach(shop => {
+        shops.forEach(shop => {
         const innerArr = new Array(); 
-        Object.keys(obj[shop]).forEach( item=> {
-            innerArr.push(obj[shop][item]);
+        Object.keys(shop.data).forEach( item=> {
+            innerArr.push(shop.data.items);
+            console.log(item);
         });
-        mainArr.push({shop:shop, items: innerArr });
+        mainArr.push({shop:shopName, items: innerArr });
     });
 
   return mainArr;
