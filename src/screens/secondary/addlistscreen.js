@@ -177,13 +177,15 @@ const convertObjectToArray = (shops = []) => {
     
         shops.forEach(shop => {
         const innerArr = new Array(); 
+        const shopdata = shop.data;
         Object.keys(shop.data).forEach( item=> {
-            innerArr.push(shop.data.items);
-            console.log(item);
+            innerArr.push(shopdata[item]);
+            
         });
-        mainArr.push({shop:shopName, items: innerArr });
+        mainArr.push({shop:shop.shopName, items: innerArr });
+        
     });
-
+    
   return mainArr;
 }
   

@@ -17,8 +17,7 @@ export default class EditChoosenListScreen extends React.Component {
 
     static navigationOptions = ({navigation}) => {
         const {state, setParams} = navigation;
-        return  {title: this.props.navigation.state.params.listTitle,
-       
+        return  {title: 'List Created',
         };
     }
 
