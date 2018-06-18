@@ -13,11 +13,11 @@ import * as firebase from 'firebase';
 
 export default class EditChoosenListScreen extends React.Component {
 
-    state={listtitle:'', shopList:[]};
+    state={listtitle:'', shopList:[], items:[]};
 
     static navigationOptions = ({navigation}) => {
         const {state, setParams} = navigation;
-        return  {title: 'List Created',
+        return  {title: 'Edit List',
         };
     }
 
@@ -31,17 +31,27 @@ export default class EditChoosenListScreen extends React.Component {
         uid = currentUserLoggedIn.uid; 
         const tis= this;
         console.log(uid);
-        firebase.database().ref('lists/'+uid+'/'+this.props.navigation.state.params.listTitle).once("value",(snapshot)=>{
-            var obj ={};
-            snapshot.forEach(function(data) {
-                console.log(data.key);
-                console.log(data.val()); 
-                obj = { ...obj, ...data.val()}
+        var obj ={};
+        var byShop = [];
+        //getting items of a list
+        firebase.database().ref('lists/'+uid+'/'+this.props.navigation.state.params.listTitle).once('value').then(function(snapshot) {
+        snapshot.forEach(function(data) {
+            
+            obj = {...obj, ...data.val()};
+            console.log(data.val());
+              byShop.push({ shopName: data.key, data: data.val() });  
+
             });
-            console.log(obj);
-            tis.setState({shopList: convertObjectToArray(obj)});
-            console.log(this.state.shopList)
-    
+            console.log(byShop);
+            tis.setState({shopList: convertObjectToArray(byShop)});
+            setListItems(tis.state.shopList);
+        });
+    }
+
+    renderInnerArray =(items = [])=> {
+        return items.map((item, index)=>{
+            return <Text key={index}> {item.item} </Text>
+
         });
     }
 
@@ -49,27 +59,32 @@ export default class EditChoosenListScreen extends React.Component {
         return this.state.shopList.map((item,index)=> {
             return (
                 <View>
-                    <Text>{item.items}</Text>
+                    <Text key= {index}>
+                        {this.renderInnerArray(item.items)}
+                    </Text>
               </View>
             );
           });
         }
     }
 
-const convertObjectToArray = (obj) => {
+const convertObjectToArray = (shops = []) => {
     
     const mainArr = new Array();
-     
-    Object.keys(obj).forEach(shop => {
-         const innerArr = new Array(); 
-         Object.keys(obj[shop]).forEach( item=> {
-             innerArr.push(obj[shop][item]);
-         });
-         mainArr.push({shop:shop, items: innerArr });
-     });
- 
-   return mainArr;
- }
+         
+        shops.forEach(shop => {
+        const innerArr = new Array(); 
+        const shopdata = shop.data;
+        Object.keys(shop.data).forEach( item=> {
+            innerArr.push(shopdata[item]);
+                 
+        });
+            mainArr.push({shop:shop.shopName, items: innerArr });
+             
+    });
+         
+    return mainArr;
+}
 
- const styles = StyleSheet.create({
- })
+const styles = StyleSheet.create({
+})
