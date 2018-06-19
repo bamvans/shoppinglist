@@ -19,23 +19,23 @@ export default class EditChoosenListScreen extends React.Component {
         };
     }
 
-      render() {
-            return (
-                <Container>
+    render() {
+        return (
+            <Container>
                 <Tabs tabStyle={{backgroundColor: '#BAB8B3'}} renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#BAB8B3'}} />}>
-                  <Tab activeTabStyle={{backgroundColor: '#BAB8B3'}} textStyle={{color:'white'}} heading="Title" tabStyle={{backgroundColor: '#BAB8B3'}}>
-                    <TitleTab navigation={this.props.navigation}  />
-                  </Tab>
-                  <Tab activeTabStyle={{backgroundColor: '#BAB8B3'}} textStyle={{color:'white'}} tabStyle={{backgroundColor: '#BAB8B3'}} heading="Shop">
-                    <ShopTitleTab navigation={this.props.navigation}  />
-                  </Tab>
-                  <Tab activeTabStyle={{backgroundColor: '#BAB8B3'}} textStyle={{color:'white'}} tabStyle={{backgroundColor: '#BAB8B3'}} heading="Items">
-                    <ItemsTab navigation={this.props.navigation}  />
-                  </Tab>
+                    <Tab activeTabStyle={{backgroundColor: '#BAB8B3'}} textStyle={{color:'white'}} heading="Title" tabStyle={{backgroundColor: '#BAB8B3'}}>
+                        <TitleTab navigation={this.props.navigation}  />
+                    </Tab>
+                    <Tab activeTabStyle={{backgroundColor: '#BAB8B3'}} textStyle={{color:'white'}} tabStyle={{backgroundColor: '#BAB8B3'}} heading="Shop">
+                        <ShopTitleTab navigation={this.props.navigation}  />
+                    </Tab>
+                    <Tab activeTabStyle={{backgroundColor: '#BAB8B3'}} textStyle={{color:'white'}} tabStyle={{backgroundColor: '#BAB8B3'}} heading="Items">
+                        <ItemsTab navigation={this.props.navigation}  />
+                    </Tab>
                 </Tabs>
-              </Container>
+            </Container>
                 
-            );
-        }
+        );
     }
+}
 
