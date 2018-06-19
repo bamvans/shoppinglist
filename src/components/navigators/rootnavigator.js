@@ -3,15 +3,15 @@ import {Platform, StatusBar} from 'react-native';
 import {StackNavigator, DrawerNavigator, DrawerItems, SafeAreaView} from 'react-navigation';
 
 //Screens//////////////////////////////////////////////////////////////////////////////////
-import EditListScreen from '../../screens/main/editlistscreen';
-import NewListScreen from '../../screens/main/newlistscreen';
-import SettingsScreen from '../../screens/main/settingsscreen';
-import SharedListScreen from '../../screens/main/sharedlistscreen';
-import AddListScreen from '../../screens/secondary/addlistscreen';
+import EditListScreen from '../../screens/EditingList/editlistscreen';
+import NewListScreen from '../../screens/AddingList/newlistscreen';
+import SettingsScreen from '../../screens/Settings/settingsscreen';
+import SharedListScreen from '../../screens/SharingList/sharedlistscreen';
+import AddListScreen from '../../screens/AddingList/addlistscreen';
 import LoginScreen from '../../screens/authentication/loginscreen';
 import LogoutScreen from '../../screens/authentication/logoutscreen';
-import ListCreatedScreen from '../../screens/ending/listcreatedscreen';
-import EditChoosenListScreen from '../../screens/secondary/editchoosenlistscreen';
+import ListCreatedScreen from '../../screens/AddingList/listcreatedscreen';
+import EditChoosenListScreen from '../../screens/EditingList/editchoosenlistscreen';
 //////////////////////////////////////////////////////////////////////////////////////////
 
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';

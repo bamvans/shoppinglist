@@ -2,25 +2,15 @@ import React, { Component } from 'react';
 import {StyleSheet,
     ScrollView ,
     Text, 
-    View, 
-    Image,
-    TouchableOpacity,
-    FlatList
+    View
  } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { Container, Content, List, ListItem, Left, Body, Right } from 'native-base';
+import { Input, Item, Label, Container, Header, Tab, Tabs, ScrollableTab  } from 'native-base';
 import * as firebase from 'firebase';
 
-export default class EditChoosenListScreen extends React.Component {
+export default class ShopTitleTab extends React.Component {
 
     state={listtitle:'', shopList:[], items:[]};
-
-    static navigationOptions = ({navigation}) => {
-        const {state, setParams} = navigation;
-        return  {title: 'Edit List',
-        };
-    }
-
 
 
     componentDidMount(){
@@ -55,18 +45,20 @@ export default class EditChoosenListScreen extends React.Component {
         });
     }
 
-      render() {
+    render(){
         return this.state.shopList.map((item,index)=> {
             return (
-                <View>
-                    <Text key= {index}>
-                        {this.renderInnerArray(item.items)}
-                    </Text>
+            <View>
+                    <Item stackedLabel>
+                        <Label>{this.renderInnerArray(item.items)}</Label>
+                        <Input />
+                    </Item> 
               </View>
-            );
-          });
-        }
+            )
+
+        })
     }
+}
 
 const convertObjectToArray = (shops = []) => {
     
