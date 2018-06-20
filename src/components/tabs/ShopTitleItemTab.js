@@ -71,13 +71,7 @@ export default class ShopTitleItemTab extends React.Component {
         //Value is in selected shop + number 0
         return this.state.shopList.map((item,index)=> {
             return (
-                <View style={{                    
-                    flexDirection: 'column',
-                    borderWidth:3,
-                    borderColor:'pink',
-                    height:130,
-                    borderBottomColor:'pink'
-                }}>
+                <View style={styles.mainView}>
                     <Text>{item.shop}</Text>
                     <Picker 
                         selectedValue={this.state["selectedShop"+index]}
@@ -85,7 +79,7 @@ export default class ShopTitleItemTab extends React.Component {
                         key={index}>
                         {this.loadShops()}
                     </Picker>
-                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={styles.secondaryView}>
                         <Item stackedLabel>
                             <Label>{this.renderInnerArray(item.items)}</Label>
                             <Input />
@@ -115,4 +109,15 @@ const convertObjectToArray = (shops = []) => {
 }
 
 const styles = StyleSheet.create({
+    mainView:{
+        flexDirection: 'column',
+        borderWidth:3,
+        borderColor:'pink',
+        height:130,
+        borderBottomColor:'pink'
+    },
+    secondaryView:{
+        justifyContent: 'center', 
+        alignItems: 'center'
+    }
 })
