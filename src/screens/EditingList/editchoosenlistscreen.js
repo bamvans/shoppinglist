@@ -7,8 +7,7 @@ import {StyleSheet,
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { Input, Item, Label, Container, Header, Tab, Tabs, ScrollableTab  } from 'native-base';
 import * as firebase from 'firebase';
-import ItemsTab from '../../components/tabs/ItemsTab';
-import ShopTitleTab from '../../components/tabs/ShopTitleTab';
+import ShopTitleItemTab from '../../components/tabs/ShopTitleItemTab';
 import TitleTab from '../../components/tabs/TitleTab';
 
 export default class EditChoosenListScreen extends React.Component {
@@ -27,10 +26,7 @@ export default class EditChoosenListScreen extends React.Component {
                         <TitleTab navigation={this.props.navigation}  />
                     </Tab>
                     <Tab activeTabStyle={styles.activeTab} textStyle={styles.texts} tabStyle={styles.tabs} heading="Shop">
-                        <ShopTitleTab navigation={this.props.navigation}  />
-                    </Tab>
-                    <Tab activeTabStyle={styles.activeTab} textStyle={styles.texts} tabStyle={styles.tabs} heading="Items">
-                        <ItemsTab navigation={this.props.navigation}  />
+                        <ShopTitleItemTab navigation={this.props.navigation}  />
                     </Tab>
                 </Tabs>
             </Container>

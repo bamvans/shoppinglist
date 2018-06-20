@@ -43,6 +43,7 @@ const CustomDrawerContentComponent = (props) => (
 }, {
     initialRouteName: 'LoginScreen',
     navigationOptions: () => ({
+        headerTintColor: 'white',
         headerTitleStyle: {
             color: 'white',
         },
@@ -85,6 +86,7 @@ const EditListNavigator = StackNavigator({
 }, {
     initialRouteName: 'EditListScreen',
     navigationOptions: () => ({
+        headerTintColor: 'white',
         headerTitleStyle: {
             color: 'white'
         },
@@ -100,6 +102,7 @@ const SharedListNavigator = StackNavigator({
 }, {
     initialRouteName: 'SharedListScreen',
     navigationOptions: () => ({
+        headerTintColor: 'white',
         headerTitleStyle: {
             color: 'white'
         },
@@ -116,6 +119,7 @@ const SettingsStackNavigator = StackNavigator({
 }, {
     initialRouteName: 'SettingsScreen',
     navigationOptions: () => ({
+        headerTintColor: 'white',
         headerTitleStyle: {
             color: 'white'
         },
@@ -132,6 +136,7 @@ const LogOutStackNavigator = StackNavigator({
 }, {
     initialRouteName: 'LogoutScreen',
     navigationOptions: () => ({
+        headerTintColor: 'white',
         headerTitleStyle: {
             color: 'white'
         },

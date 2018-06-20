@@ -9,7 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommu
 import { Input, Item, Label, Container, Header, Tab, Tabs, ScrollableTab  } from 'native-base';
 import * as firebase from 'firebase';
 
-export default class ShopTitleTab extends React.Component {
+export default class ShopTitleItemTab extends React.Component {
 
     state={listtitle:'', shopList:[], items:[], selectedshop:''};
 
@@ -58,19 +58,39 @@ export default class ShopTitleTab extends React.Component {
         return this.state.items.map((item,index)=> {
           return <Picker.Item key={index} label={item.shop} value={item.shop} />
         })
-      }
+    }
+
+    renderInnerArray =(items = [])=> {
+        return items.map((item, index)=>{
+            return <Text key={index}> {item.item} </Text>
+
+        });
+    }
 
     render(){
+        //Value is in selected shop + number 0
         return this.state.shopList.map((item,index)=> {
             return (
-                <View>
+                <View style={{                    
+                    flexDirection: 'column',
+                    borderWidth:3,
+                    borderColor:'pink',
+                    height:130,
+                    borderBottomColor:'pink'
+                }}>
                     <Text>{item.shop}</Text>
-                    <Picker
-                        selectedValue={this.state.selectedshop}
-                        onValueChange={(itemValue, itemIndex) => this.setState({selectedshop: itemValue})}
+                    <Picker 
+                        selectedValue={this.state["selectedShop"+index]}
+                        onValueChange={(itemValue, itemIndex) =>{ this.setState({ ["selectedShop"+index]: itemValue  });}}
                         key={index}>
                         {this.loadShops()}
                     </Picker>
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <Item stackedLabel>
+                            <Label>{this.renderInnerArray(item.items)}</Label>
+                            <Input />
+                        </Item> 
+                    </View>
                 </View>
             )
         });
