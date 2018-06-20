@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {StyleSheet,
     ScrollView ,
     Text, 
-    View
+    View,
+    Picker
  } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { Input, Item, Label, Container, Header, Tab, Tabs, ScrollableTab  } from 'native-base';
@@ -10,7 +11,7 @@ import * as firebase from 'firebase';
 
 export default class ShopTitleTab extends React.Component {
 
-    state={listtitle:'', shopList:[], items:[]};
+    state={listtitle:'', shopList:[], items:[], selectedshop:''};
 
 
     componentDidMount(){
@@ -35,35 +36,51 @@ export default class ShopTitleTab extends React.Component {
             console.log(byShop);
             tis.setState({shopList: convertObjectToArray(byShop)});
             setListItems(tis.state.shopList);
+                    
         });
-    }
 
-    renderInnerArray =(items = [])=> {
-        return items.map((item, index)=>{
-            return <Text key={index}> {item.item} </Text>
-
+        
+        firebase.database().ref("shops").once("value",(snapshot)=>{
+        var arr = [];
+        snapshot.forEach(function(data) {
+            
+             // let items = Object.values(data);
+              console.log(data.val()); 
+              arr.push(data.val());
+             // this.setState({items});
+            });
+    
+            tis.setState({items: arr});
         });
-    }
+     }
+
+    loadShops=()=> {
+        return this.state.items.map((item,index)=> {
+          return <Picker.Item key={index} label={item.shop} value={item.shop} />
+        })
+      }
 
     render(){
         return this.state.shopList.map((item,index)=> {
             return (
-            <View>
-                    <Item stackedLabel>
-                        <Label>{this.renderInnerArray(item.items)}</Label>
-                        <Input />
-                    </Item> 
-              </View>
+                <View>
+                    <Text>{item.shop}</Text>
+                    <Picker
+                        selectedValue={this.state.selectedshop}
+                        onValueChange={(itemValue, itemIndex) => this.setState({selectedshop: itemValue})}
+                        key={index}>
+                        {this.loadShops()}
+                    </Picker>
+                </View>
             )
-
-        })
+        });
     }
 }
 
 const convertObjectToArray = (shops = []) => {
     
     const mainArr = new Array();
-         
+         const tis=this;
         shops.forEach(shop => {
         const innerArr = new Array(); 
         const shopdata = shop.data;
@@ -72,9 +89,8 @@ const convertObjectToArray = (shops = []) => {
                  
         });
             mainArr.push({shop:shop.shopName, items: innerArr });
-             
     });
-         
+    
     return mainArr;
 }
 

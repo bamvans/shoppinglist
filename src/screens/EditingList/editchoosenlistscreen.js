@@ -22,14 +22,14 @@ export default class EditChoosenListScreen extends React.Component {
     render() {
         return (
             <Container>
-                <Tabs tabStyle={{backgroundColor: '#BAB8B3'}} renderTabBar={()=> <ScrollableTab style={{backgroundColor: '#BAB8B3'}} />}>
-                    <Tab activeTabStyle={{backgroundColor: '#BAB8B3'}} textStyle={{color:'white'}} heading="Title" tabStyle={{backgroundColor: '#BAB8B3'}}>
+                <Tabs tabStyle={styles.tabs} renderTabBar={()=> <ScrollableTab style={styles.scrolltab} />}>
+                    <Tab activeTabStyle={styles.activeTab} textStyle={styles.texts} heading="Title" tabStyle={styles.tabs}>
                         <TitleTab navigation={this.props.navigation}  />
                     </Tab>
-                    <Tab activeTabStyle={{backgroundColor: '#BAB8B3'}} textStyle={{color:'white'}} tabStyle={{backgroundColor: '#BAB8B3'}} heading="Shop">
+                    <Tab activeTabStyle={styles.activeTab} textStyle={styles.texts} tabStyle={styles.tabs} heading="Shop">
                         <ShopTitleTab navigation={this.props.navigation}  />
                     </Tab>
-                    <Tab activeTabStyle={{backgroundColor: '#BAB8B3'}} textStyle={{color:'white'}} tabStyle={{backgroundColor: '#BAB8B3'}} heading="Items">
+                    <Tab activeTabStyle={styles.activeTab} textStyle={styles.texts} tabStyle={styles.tabs} heading="Items">
                         <ItemsTab navigation={this.props.navigation}  />
                     </Tab>
                 </Tabs>
@@ -39,3 +39,17 @@ export default class EditChoosenListScreen extends React.Component {
     }
 }
 
+const styles=StyleSheet.create({
+    activeTab:{
+        backgroundColor: '#BAB8B3'
+    },
+    texts:{
+        color:'white'
+    },
+    tabs:{
+        backgroundColor: '#BAB8B3'
+    },
+    scrolltab:{
+        backgroundColor: '#BAB8B3'
+    }
+})
