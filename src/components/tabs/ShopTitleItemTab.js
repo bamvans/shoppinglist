@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import {StyleSheet,
     ScrollView ,
-    Text, 
     View,
     Picker
  } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { Input, Item, Label, Container, Header, Tab, Tabs, ScrollableTab  } from 'native-base';
+import { Card, CardItem, Left, Body, Text  } from 'native-base';
 import * as firebase from 'firebase';
+import Swipeout from 'react-native-swipeout';
 
 export default class ShopTitleItemTab extends React.Component {
 
     state={listtitle:'', shopList:[], items:[], selectedshop:''};
-
 
     componentDidMount(){
         this.setState({listtitle:this.props.navigation.state.params.listTitle});
@@ -39,31 +38,29 @@ export default class ShopTitleItemTab extends React.Component {
                     
         });
 
-        
-        firebase.database().ref("shops").once("value",(snapshot)=>{
-        var arr = [];
-        snapshot.forEach(function(data) {
-            
-             // let items = Object.values(data);
-              console.log(data.val()); 
-              arr.push(data.val());
-             // this.setState({items});
-            });
-    
-            tis.setState({items: arr});
-        });
      }
 
-    loadShops=()=> {
-        return this.state.items.map((item,index)=> {
-          return <Picker.Item key={index} label={item.shop} value={item.shop} />
-        })
-    }
-
-    renderInnerArray =(items = [])=> {
+    renderInnerArray =(items = [],shopN)=> {
         return items.map((item, index)=>{
-            return <Text key={index}> {item.item} </Text>
-
+            console.log(item);
+            return   <Swipeout right={swipeoutBtns}>
+                        <View  style={{height:130}}>
+                            <Card>
+                                <CardItem>
+                                    <Body>
+                                        <Text>{shopN}</Text>
+                                    </Body>
+                                </CardItem>
+                                <CardItem >
+                                    <Left>
+                                        <Body>
+                                            <Text>{item.item}</Text>
+                                        </Body>
+                                    </Left>
+                                </CardItem>
+                            </Card>
+                        </View>
+                    </Swipeout>
         });
     }
 
@@ -72,24 +69,21 @@ export default class ShopTitleItemTab extends React.Component {
         return this.state.shopList.map((item,index)=> {
             return (
                 <View style={styles.mainView}>
-                    <Text>{item.shop}</Text>
-                    <Picker 
-                        selectedValue={this.state["selectedShop"+index]}
-                        onValueChange={(itemValue, itemIndex) =>{ this.setState({ ["selectedShop"+index]: itemValue  });}}
-                        key={index}>
-                        {this.loadShops()}
-                    </Picker>
-                    <View style={styles.secondaryView}>
-                        <Item stackedLabel>
-                            <Label>{this.renderInnerArray(item.items)}</Label>
-                            <Input />
-                        </Item> 
-                    </View>
+                        {this.renderInnerArray(item.items,item.shop)} 
                 </View>
             )
         });
     }
 }
+
+
+// Buttons
+var swipeoutBtns = [
+    {
+        text: 'Delete',
+        backgroundColor:'red'
+    }
+]
 
 const convertObjectToArray = (shops = []) => {
     
@@ -111,10 +105,7 @@ const convertObjectToArray = (shops = []) => {
 const styles = StyleSheet.create({
     mainView:{
         flexDirection: 'column',
-        borderWidth:3,
-        borderColor:'pink',
         height:130,
-        borderBottomColor:'pink'
     },
     secondaryView:{
         justifyContent: 'center', 

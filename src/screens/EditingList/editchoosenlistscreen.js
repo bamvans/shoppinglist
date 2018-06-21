@@ -21,11 +21,11 @@ export default class EditChoosenListScreen extends React.Component {
     render() {
         return (
             <Container>
-                <Tabs tabStyle={styles.tabs} renderTabBar={()=> <ScrollableTab style={styles.scrolltab} />}>
+                <Tabs locked tabStyle={styles.tabs} renderTabBar={()=> <ScrollableTab style={styles.scrolltab} />}>
                     <Tab activeTabStyle={styles.activeTab} textStyle={styles.texts} heading="Title" tabStyle={styles.tabs}>
                         <TitleTab navigation={this.props.navigation}  />
                     </Tab>
-                    <Tab activeTabStyle={styles.activeTab} textStyle={styles.texts} tabStyle={styles.tabs} heading="Shop">
+                    <Tab activeTabStyle={styles.activeTab} textStyle={styles.texts} tabStyle={styles.tabs} heading="Items">
                         <ShopTitleItemTab navigation={this.props.navigation}  />
                     </Tab>
                 </Tabs>
