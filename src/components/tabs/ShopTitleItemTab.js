@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import {StyleSheet,
     ScrollView ,
     View,
-    Picker
+    Modal,
+    TouchableOpacity
  } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { Card, CardItem, Left, Body, Text  } from 'native-base';
 import * as firebase from 'firebase';
 import Swipeout from 'react-native-swipeout';
+import PopupDialog, { DialogTitle, SlideAnimation } from 'react-native-popup-dialog';
+import pp from '../../components/popupdialog';
+
 
 export default class ShopTitleItemTab extends React.Component {
 
@@ -41,17 +45,27 @@ export default class ShopTitleItemTab extends React.Component {
      }
 
     renderInnerArray =(items = [],shopN)=> {
+        var swipeoutBtns = [
+            {
+                text:'Edit',
+                type:'primary',
+                onPress: () => {this.renderPopUp()},
+
+            },
+            {
+                text: 'Delete',
+                type:'delete'
+            },
+        ];
         return items.map((item, index)=>{
             console.log(item);
-            return   <Swipeout right={swipeoutBtns}>
+            return   <Swipeout right={swipeoutBtns} sensitivity='10'>
                         <View  style={{height:130}}>
                             <Card>
-                                <CardItem>
-                                    <Body>
-                                        <Text>{shopN}</Text>
-                                    </Body>
+                                <CardItem header bordered>
+                                    <Text>{shopN}</Text>
                                 </CardItem>
-                                <CardItem >
+                                <CardItem bordered>
                                     <Left>
                                         <Body>
                                             <Text>{item.item}</Text>
@@ -64,8 +78,24 @@ export default class ShopTitleItemTab extends React.Component {
         });
     }
 
+    renderPopUp=()=>{
+        console.log('rr');
+        return(
+            <View><PopupDialog dialogStyle={{width:20, height:36, overlayBackgroundColor:'pink'}}
+            ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+            dialogTitle={<DialogTitle title="Dialog Title" />}
+            dialogAnimation={slideAnimation}
+            >
+                <View>
+                <Text>Hello</Text>
+                </View>
+            </PopupDialog>
+            </View>
+        )}
+    
+    
+
     render(){
-        //Value is in selected shop + number 0
         return this.state.shopList.map((item,index)=> {
             return (
                 <View style={styles.mainView}>
@@ -74,16 +104,11 @@ export default class ShopTitleItemTab extends React.Component {
             )
         });
     }
+
 }
-
-
-// Buttons
-var swipeoutBtns = [
-    {
-        text: 'Delete',
-        backgroundColor:'red'
-    }
-]
+const slideAnimation = new SlideAnimation({
+    slideFrom: 'bottom',
+  });
 
 const convertObjectToArray = (shops = []) => {
     
